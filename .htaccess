@@ -1,0 +1,78 @@
+# NexaEducation Website .htaccess Configuration
+# For deployment to www.nexaeduconsult.com
+
+# Security: Prevent access to sensitive files
+<Files "*.db">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "*.md">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Protect admin directory (optional - for extra security)
+<Directory "admin">
+    # Uncomment below lines to password protect admin area
+    # AuthType Basic
+    # AuthName "Admin Area"
+    # AuthUserFile /full/path/to/.htpasswd
+    # Require valid-user
+</Directory>
+
+# Enable clean URLs (remove .html extensions)
+RewriteEngine On
+
+# Handle blog page specially (redirect to blog.php)
+RewriteRule ^blog/?$ blog.php [NC,L]
+
+# Handle gallery page specially (redirect to gallery.php)
+RewriteRule ^gallery/?$ gallery.php [NC,L]
+
+# Redirect .html extensions to clean URLs
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+(.+)\.html[\s?] [NC]
+RewriteRule ^ /%1? [R=301,L]
+
+# Add .html extension internally
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# Force HTTPS (recommended for production)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Enable compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Browser caching
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+</IfModule>
+
+# PHP Configuration
+php_value upload_max_filesize 32M
+php_value post_max_size 32M
+php_value max_execution_time 300
+php_value max_input_vars 1000
+
+# Error handling for production
+# php_flag display_errors Off
+# php_flag log_errors On
