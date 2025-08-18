@@ -152,9 +152,8 @@ try {
         <ul>
           <li><a href="/about">About us</a></li>
           <li><a href="/#courses">Courses</a></li>
-          <li>Single course</li>
-          <li>Pages</li>
           <li><a href="/blog">Blog</a></li>
+          <li><a href="/gallery">Gallery</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
@@ -172,13 +171,13 @@ try {
       <div>
         <h4>Recent Blog Posts</h4>
         <ul>
-          <?php if (!empty($posts) && count($posts) >= 2): ?>
-            <?php for ($i = 0; $i < min(2, count($posts)); $i++): ?>
-              <li><a href="#" style="color: #ccc; text-decoration: none;"><?php echo htmlspecialchars($posts[$i]['title']); ?></a> - <?php echo date('M d, Y', strtotime($posts[$i]['created_at'])); ?></li>
-            <?php endfor; ?>
+          <?php if (!empty($posts)): ?>
+            <?php foreach ($posts as $post): ?>
+              <li><a href="#" style="color: #ccc; text-decoration: none;"><?php echo htmlspecialchars($post['title']); ?></a></li>
+            <?php endforeach; ?>
           <?php else: ?>
-            <li>Japanese University Admissions - Aug 16, 2025</li>
-            <li>Visa Application Tips - July 16, 2025</li>
+            <li>Japanese University Admissions</li>
+            <li>Visa Application Tips</li>
           <?php endif; ?>
         </ul>
       </div>

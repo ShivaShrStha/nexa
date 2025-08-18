@@ -290,7 +290,6 @@ if (isset($_GET['logout'])) {
             <h2 class="section-title">📝 Blog Posts</h2>
             <div style="margin-bottom: 1rem;">
                 <button class="refresh-btn" onclick="loadBlogPosts()">🔄 Refresh</button>
-                <button class="refresh-btn" onclick="exportToExcel('blog_posts')" style="background: #28a745; margin-left: 0.5rem;">📥 Export CSV</button>
             </div>
             <div id="blogPostsTable">
                 <!-- Table will be loaded here -->
@@ -300,7 +299,7 @@ if (isset($_GET['logout'])) {
         <!-- Create Blog Section -->
         <div id="create-blog" class="content-section">
             <h2 class="section-title">✍️ Create New Blog Post</h2>
-            <form id="blogForm" class="blog-form">
+            <form id="blogForm" class="blog-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="blogTitle">Title *</label>
                     <input type="text" id="blogTitle" name="title" required>
@@ -332,7 +331,6 @@ if (isset($_GET['logout'])) {
             <h2 class="section-title">🖼️ Gallery Images</h2>
             <div style="margin-bottom: 1rem;">
                 <button class="refresh-btn" onclick="loadGalleryImages()">🔄 Refresh</button>
-                <button class="refresh-btn" onclick="exportToExcel('gallery')" style="background: #28a745; margin-left: 0.5rem;">📥 Export CSV</button>
             </div>
             <div id="galleryTable">
                 <!-- Table will be loaded here -->
