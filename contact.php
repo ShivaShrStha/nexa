@@ -1,3 +1,42 @@
+<?php
+// Contact page - add form processing functionality
+$message = '';
+$messageClass = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        require_once 'admin/database.php';
+        $db = new Database();
+        $conn = $db->getConnection();
+        
+        // Create table if it doesn't exist
+        $conn->exec("CREATE TABLE IF NOT EXISTS contact_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            subject TEXT NOT NULL,
+            message TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )");
+        
+        // Insert message
+        $stmt = $conn->prepare("INSERT INTO contact_messages (name, email, subject, message) VALUES (?, ?, ?, ?)");
+        $stmt->execute([
+            $_POST['name'],
+            $_POST['email'],
+            $_POST['subject'],
+            $_POST['message']
+        ]);
+        
+        $message = "Thank you! Your message has been sent successfully.";
+        $messageClass = "success";
+        
+    } catch(Exception $e) {
+        $message = "Sorry, there was an error sending your message. Please try again.";
+        $messageClass = "error";
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -164,6 +203,16 @@
       text-align: center;
       font-size: 1.08rem;
     }
+    .form-message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .form-message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
     @media (max-width: 900px) {
       .contact-flex {
         flex-direction: column;
@@ -239,13 +288,19 @@
           <span>Email: <a href="mailto:info@nexaeduconsult.com">info@nexaeduconsult.com</a></span>
           <span>Address: Banasthali Chowk, Kathmandu</span>
         </div>
-        <form class="contact-form" id="contactForm">
+        
+        <?php if ($message): ?>
+          <div class="form-message <?php echo $messageClass; ?>" style="margin-bottom: 20px; padding: 15px; border-radius: 8px; font-weight: 600;">
+            <?php echo htmlspecialchars($message); ?>
+          </div>
+        <?php endif; ?>
+        
+        <form class="contact-form" method="POST">
           <input type="text" name="name" placeholder="Your Name" required>
           <input type="email" name="email" placeholder="Your Email" required>
           <input type="text" name="subject" placeholder="Subject" required>
           <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
           <button type="submit">Send Message</button>
-          <div class="form-message" id="contactMessage" style="display:none; margin-top:10px; padding:10px; border-radius:5px;"></div>
         </form>
       </div>
       <div class="contact-right">
@@ -270,8 +325,6 @@
     </div>
   </section>
 
-
-  
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>

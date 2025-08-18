@@ -1,3 +1,6 @@
+<?php
+// Homepage with dynamic content capabilities
+?>
 <!doctype html>
 <html lang="en">
 <head>

@@ -1,18 +1,13 @@
+<?php
+// About page - no dynamic content needed yet
+?>
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Blog | NexaEducationCountaltancy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-</head> html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Blog - NexaEducationCountaltancy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <title>About Us | NexaEducationCountaltancy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -49,48 +44,65 @@
       </div>
     </div>
   </header>
-
-  <main>
-    <section class="blog-hero reveal" style="background: linear-gradient(90deg, #3661b7 0%, #4f8edc 100%); color: #fff; padding: 3rem 0;">
-      <div class="container">
-        <h1 class="section-title" style="font-size:2.5rem;">NexaEducation Blog</h1>
-        <p class="section-sub" style="font-size:1.2rem; max-width:600px; margin:0 auto; color: white;">Insights, tips, and stories for Nepali students planning to study in Japan. Stay updated with the latest news, guides, and success stories from NexaEducationCountaltancy.</p>
+  <header class="about-header">
+    <h1>About NexaEducationCountaltancy</h1>
+    <p>Empowering Nepali students for success in Japan through expert guidance, mentorship, and support.</p>
+    <div class="container">
+      <div class="top-left">
+        <a href="mailto:info@nexaeduconsult.com" class="top-email">info@nexaeduconsult.com</a>
+        <span class="sep">&nbsp;|&nbsp;</span>
+        <a href="tel:+0477333454221" class="call-link" aria-label="Call Nexa Education">+04 77 333 454 221</a>
+      </div>
+    </div>
+  </header>
+  <main class="about-main">
+    <section class="about-section">
+      <div class="about-title">Our Mission</div>
+      <div class="about-text">
+        NexaEducationCountaltancy is dedicated to helping Nepali students achieve their dreams of studying in Japan. We provide personalized mentorship, admissions support, and cultural orientation to ensure a smooth transition and successful academic journey.
       </div>
     </section>
-
-    <section class="blog-list container reveal">
-      <div class="blog-grid">
-        <article class="blog-card">
-          <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=800&auto=format&fit=crop" alt="Study in Japan" class="blog-img">
-          <div class="blog-body">
-            <h2 class="blog-title">How to Prepare for Japanese University Admissions</h2>
-            <p class="blog-meta">By Nexa Team | Aug 2025</p>
-            <p class="blog-excerpt">A step-by-step guide for Nepali students: application timelines, required documents, and tips for a successful admission process.</p>
-            <a href="#" class="btn btn-small">Read More</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?q=80&w=800&auto=format&fit=crop" alt="Visa Tips" class="blog-img">
-          <div class="blog-body">
-            <h2 class="blog-title">Visa Application Tips for Japan</h2>
-            <p class="blog-meta">By Nexa Team | July 2025</p>
-            <p class="blog-excerpt">Essential advice for Nepali students on preparing and submitting your Japanese student visa application, including common mistakes to avoid.</p>
-            <a href="#" class="btn btn-small">Read More</a>
-          </div>
-        </article>
-        <article class="blog-card">
-          <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=800&auto=format&fit=crop" alt="Student Life" class="blog-img">
-          <div class="blog-body">
-            <h2 class="blog-title">Student Life in Japan: What to Expect</h2>
-            <p class="blog-meta">By Nexa Team | June 2025</p>
-            <p class="blog-excerpt">Discover the culture, campus life, and opportunities for Nepali students in Japan. Tips for adapting and thriving abroad.</p>
-            <a href="#" class="btn btn-small">Read More</a>
-          </div>
-        </article>
+    <section class="about-section">
+      <div class="about-title">Meet Our Team</div>
+      <div class="about-grid">
+        <div class="about-card">
+          <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=400&q=80" alt="Founder" class="about-img">
+          <div class="about-card-title">Shiva Sharan Shrestha</div>
+          <div class="about-card-desc">Founder & Lead Consultant. 12+ years guiding students to top Japanese universities.</div>
+        </div>
+        <div class="about-card">
+          <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80" alt="Mentor" class="about-img">
+          <div class="about-card-title">Mina Tamang</div>
+          <div class="about-card-desc">Admissions Mentor. Expert in visa, scholarships, and university selection.</div>
+        </div>
+        <div class="about-card">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80" alt="Language Coach" class="about-img">
+          <div class="about-card-title">Ryohei Sato</div>
+          <div class="about-card-desc">Japanese Language Coach. Native speaker, JLPT prep specialist.</div>
+        </div>
+      </div>
+    </section>
+    <section class="about-section">
+      <div class="about-title">Why Choose Us?</div>
+      <div class="about-grid">
+        <div class="about-card">
+          <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Support" class="about-img">
+          <div class="about-card-title">Personalized Support</div>
+          <div class="about-card-desc">One-on-one guidance from application to arrival in Japan.</div>
+        </div>
+        <div class="about-card">
+          <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80" alt="Network" class="about-img">
+          <div class="about-card-title">Strong Network</div>
+          <div class="about-card-desc">Connections with top universities, language schools, and employers.</div>
+        </div>
+        <div class="about-card">
+          <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Success" class="about-img">
+          <div class="about-card-title">Proven Success</div>
+          <div class="about-card-desc">Hundreds of students placed in leading Japanese institutions.</div>
+        </div>
       </div>
     </section>
   </main>
-
   <section class="newsletter reveal">
     <div class="container newsletter-inner">
       <div>
@@ -104,7 +116,6 @@
       </form>
     </div>
   </section>
-
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
