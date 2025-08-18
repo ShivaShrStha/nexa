@@ -72,16 +72,28 @@ window.addEventListener('resize', ()=>{
 });
 
 // Sticky header shadow on scroll
-const navwrap = document.querySelector('.navwrap');
+const siteHeader = document.querySelector('.site-header');
 window.addEventListener('scroll', ()=>{
-  if(window.scrollY > 20) navwrap.classList.add('scrolled'); else navwrap.classList.remove('scrolled');
+  if(window.scrollY > 20) {
+    if(siteHeader) siteHeader.classList.add('scrolled');
+  } else {
+    if(siteHeader) siteHeader.classList.remove('scrolled');
+  }
 });
 
-// Smooth internal links
+// Smooth internal links - only for same-page anchor links
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click', (e)=>{
-    const target = document.querySelector(a.getAttribute('href'));
-    if(target){e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); closeNav();}
+    const href = a.getAttribute('href');
+    // Only handle if it's a pure anchor link (starts with #) and target exists on current page
+    if(href.startsWith('#') && href.length > 1){
+      const target = document.querySelector(href);
+      if(target){
+        e.preventDefault(); 
+        target.scrollIntoView({behavior:'smooth',block:'start'}); 
+        closeNav();
+      }
+    }
   });
 });
 
@@ -359,8 +371,8 @@ let scrollTimeout;
 let headerVisible = true;
 
 function handleScroll() {
-  const navwrap = document.querySelector('.navwrap');
-  if (!navwrap) return;
+  const siteHeader = document.querySelector('.site-header');
+  if (!siteHeader) return;
 
   const currentScrollY = window.scrollY;
   const scrollDelta = Math.abs(currentScrollY - lastScrollY);
@@ -372,35 +384,35 @@ function handleScroll() {
   if (scrollDelta < 3) return;
   
   if (currentScrollY > 100) {
-    navwrap.classList.add('scrolled');
+    siteHeader.classList.add('scrolled');
     
     if (currentScrollY < lastScrollY && scrollDelta > 10) {
       // Scrolling up significantly - show header
       if (!headerVisible) {
-        navwrap.classList.remove('header-hide');
-        navwrap.classList.add('header-show');
+        siteHeader.classList.remove('header-hide');
+        siteHeader.classList.add('header-show');
         headerVisible = true;
       }
     } else if (currentScrollY > lastScrollY && scrollDelta > 10 && currentScrollY > 200) {
       // Scrolling down significantly and past threshold - hide header
       if (headerVisible) {
-        navwrap.classList.add('header-hide');
-        navwrap.classList.remove('header-show');
+        siteHeader.classList.add('header-hide');
+        siteHeader.classList.remove('header-show');
         headerVisible = false;
       }
     }
   } else {
     // At top of page - always show header
-    navwrap.classList.remove('scrolled', 'header-hide');
-    navwrap.classList.add('header-show');
+    siteHeader.classList.remove('scrolled', 'header-hide');
+    siteHeader.classList.add('header-show');
     headerVisible = true;
   }
 
   // Set timeout to show header after scrolling stops
   scrollTimeout = setTimeout(() => {
     if (!headerVisible) {
-      navwrap.classList.remove('header-hide');
-      navwrap.classList.add('header-show');
+      siteHeader.classList.remove('header-hide');
+      siteHeader.classList.add('header-show');
       headerVisible = true;
     }
   }, 1000);
@@ -422,9 +434,9 @@ window.addEventListener('scroll', requestTick, { passive: true });
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
-  const navwrap = document.querySelector('.navwrap');
-  if (navwrap) {
-    navwrap.classList.add('header-show');
+  const siteHeader = document.querySelector('.site-header');
+  if (siteHeader) {
+    siteHeader.classList.add('header-show');
     headerVisible = true;
   }
   handleScroll();
