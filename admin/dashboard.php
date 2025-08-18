@@ -310,8 +310,9 @@ if (isset($_GET['logout'])) {
                     <input type="text" id="blogAuthor" name="author" value="NexaEducation Admin">
                 </div>
                 <div class="form-group">
-                    <label for="blogImage">Featured Image URL</label>
-                    <input type="url" id="blogImage" name="featured_image" placeholder="https://example.com/image.jpg">
+                    <label for="blogImage">Featured Image</label>
+                    <input type="file" id="blogImage" name="featured_image" accept="image/*">
+                    <small style="color: #666; font-size: 0.9rem;">Upload an image (JPG, PNG, GIF - Max 5MB)</small>
                 </div>
                 <div class="form-group">
                     <label for="blogExcerpt">Excerpt</label>

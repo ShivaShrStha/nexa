@@ -56,7 +56,14 @@ img{display:block;max-width:100%;height:auto}
 }
 
 *{box-sizing:border-box}
-body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.5;color:var(--dark);margin:0;background:var(--bg)}
+body{
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  line-height:1.5;
+  color:var(--dark);
+  margin:0;
+  background:var(--bg);
+  padding-top: 120px; /* Account for fixed header with topbar */
+}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
 .topbar{background:#1f2326;color:#bfc6d0;font-size:14px;padding:8px 0}
 .topbar .container{display:flex;justify-content:space-between;font-size:15px}
@@ -822,18 +829,30 @@ body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Ari
   max-height: 60px;
 }
 
-/* Sticky header effect */
+/* Enhanced Sticky header with hide/show animations */
 .navwrap {
-  transition: all 0.3s ease;
-  position: sticky;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.98);
 }
 
 .navwrap.scrolled {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+}
+
+.navwrap.header-hide {
+  transform: translateY(-100%);
+}
+
+.navwrap.header-show {
+  transform: translateY(0);
 }
 
 .navwrap.scrolled .logo-img {
@@ -910,4 +929,45 @@ body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Ari
     grid-template-columns: 1fr;
     gap: 24px;
   }
+}
+
+/* Responsive header adjustments */
+@media (max-width: 900px) {
+  body {
+    padding-top: 100px; /* Adjust for mobile header height */
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding-top: 90px; /* Further adjust for smaller mobile screens */
+  }
+}
+
+/* Smooth scroll behavior for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Additional header animation improvements */
+.navwrap {
+  will-change: transform;
+}
+
+.navwrap.header-hide {
+  animation: slideUp 0.3s ease-in-out forwards;
+}
+
+.navwrap.header-show {
+  animation: slideDown 0.3s ease-in-out forwards;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
 }

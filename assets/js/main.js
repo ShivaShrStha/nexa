@@ -352,20 +352,58 @@ if(testimonialSliderEl){
   }, 2000);
 }
 
-// Sticky Header on Scroll
+// Enhanced Sticky Header with Hide/Show on Scroll
 let lastScrollY = window.scrollY;
+let isScrollingUp = false;
+let scrollTimeout;
+let headerVisible = true;
 
 function handleScroll() {
   const navwrap = document.querySelector('.navwrap');
   if (!navwrap) return;
 
   const currentScrollY = window.scrollY;
-
+  const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+  
+  // Clear existing timeout
+  clearTimeout(scrollTimeout);
+  
+  // Only process significant scroll movements
+  if (scrollDelta < 3) return;
+  
   if (currentScrollY > 100) {
     navwrap.classList.add('scrolled');
+    
+    if (currentScrollY < lastScrollY && scrollDelta > 10) {
+      // Scrolling up significantly - show header
+      if (!headerVisible) {
+        navwrap.classList.remove('header-hide');
+        navwrap.classList.add('header-show');
+        headerVisible = true;
+      }
+    } else if (currentScrollY > lastScrollY && scrollDelta > 10 && currentScrollY > 200) {
+      // Scrolling down significantly and past threshold - hide header
+      if (headerVisible) {
+        navwrap.classList.add('header-hide');
+        navwrap.classList.remove('header-show');
+        headerVisible = false;
+      }
+    }
   } else {
-    navwrap.classList.remove('scrolled');
+    // At top of page - always show header
+    navwrap.classList.remove('scrolled', 'header-hide');
+    navwrap.classList.add('header-show');
+    headerVisible = true;
   }
+
+  // Set timeout to show header after scrolling stops
+  scrollTimeout = setTimeout(() => {
+    if (!headerVisible) {
+      navwrap.classList.remove('header-hide');
+      navwrap.classList.add('header-show');
+      headerVisible = true;
+    }
+  }, 1000);
 
   lastScrollY = currentScrollY;
 }
@@ -376,13 +414,18 @@ function requestTick() {
   if (!ticking) {
     requestAnimationFrame(handleScroll);
     ticking = true;
-    setTimeout(() => { ticking = false; }, 10);
+    setTimeout(() => { ticking = false; }, 16);
   }
 }
 
-window.addEventListener('scroll', requestTick);
+window.addEventListener('scroll', requestTick, { passive: true });
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+  const navwrap = document.querySelector('.navwrap');
+  if (navwrap) {
+    navwrap.classList.add('header-show');
+    headerVisible = true;
+  }
   handleScroll();
 });

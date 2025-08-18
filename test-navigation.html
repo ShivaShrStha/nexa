@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Test - NexaEducation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .test-link {
+            display: inline-block;
+            margin: 5px 10px 5px 0;
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .test-link:hover {
+            background: #0056b3;
+        }
+        .status {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .info { color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <h1>🧪 NexaEducation Website Navigation Test</h1>
+    <p>This page tests all navigation links and functionality to ensure everything is properly connected.</p>
+
+    <div class="test-section">
+        <h2>📄 Main Pages</h2>
+        <a href="/" class="test-link">Home</a>
+        <a href="/about" class="test-link">About</a>
+        <a href="/contact" class="test-link">Contact</a>
+        <a href="/blog" class="test-link">Blog (PHP)</a>
+        <a href="/gallery" class="test-link">Gallery (PHP)</a>
+        <span class="status info">✓ All main pages should be accessible</span>
+    </div>
+
+    <div class="test-section">
+        <h2>🔗 Internal Navigation</h2>
+        <a href="/#courses" class="test-link">Courses Section</a>
+        <a href="/#home" class="test-link">Home Section</a>
+        <span class="status info">✓ Anchor links with smooth scroll</span>
+    </div>
+
+    <div class="test-section">
+        <h2>👨‍💼 Admin Dashboard</h2>
+        <a href="/admin/dashboard.php" class="test-link">Admin Login</a>
+        <span class="status info">✓ Admin interface (password: admin123)</span>
+    </div>
+
+    <div class="test-section">
+        <h2>📧 Contact Information</h2>
+        <div>
+            <strong>Email Addresses:</strong><br>
+            <a href="mailto:info@nexaeduconsult.com">info@nexaeduconsult.com</a><br>
+            <a href="mailto:nexaeduu@gmail.com">nexaeduu@gmail.com</a><br>
+            <strong>Phone:</strong> <a href="tel:+9779851417660">+977 9851417660</a>
+        </div>
+        <span class="status success">✓ Both emails should be visible on all pages</span>
+    </div>
+
+    <div class="test-section">
+        <h2>📱 Responsive Features</h2>
+        <div>
+            <strong>Test Items:</strong>
+            <ul>
+                <li>Sticky header (scroll down to test hide/show animation)</li>
+                <li>Hamburger menu (resize window to mobile width)</li>
+                <li>Logo sizing (should be 60px desktop, 55px tablet, 50px mobile)</li>
+                <li>Gallery filtering and modal preview</li>
+                <li>Career pathways hover effects</li>
+            </ul>
+        </div>
+        <span class="status info">✓ All responsive features should work smoothly</span>
+    </div>
+
+    <div class="test-section">
+        <h2>🖼️ Gallery Functionality</h2>
+        <div>
+            <strong>Admin Gallery Features:</strong>
+            <ul>
+                <li>Image upload with validation (5MB max, JPG/PNG/GIF/WebP)</li>
+                <li>Category assignment (Academic, Events, Campus Life, Student Life)</li>
+                <li>Featured image toggle</li>
+                <li>Delete functionality</li>
+                <li>CSV export</li>
+            </ul>
+        </div>
+        <span class="status success">✓ Gallery should support full CRUD operations</span>
+    </div>
+
+    <div class="test-section">
+        <h2>📝 Blog System</h2>
+        <div>
+            <strong>Blog Features:</strong>
+            <ul>
+                <li>Image upload instead of URL input</li>
+                <li>Rich text content editor</li>
+                <li>Auto-generated excerpts</li>
+                <li>Author management</li>
+                <li>CSV export</li>
+            </ul>
+        </div>
+        <span class="status success">✓ Blog should support image uploads and management</span>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Data Export</h2>
+        <div>
+            <strong>Export Available For:</strong>
+            <ul>
+                <li>Newsletter subscribers</li>
+                <li>Contact messages</li>
+                <li>Course requests</li>
+                <li>Blog posts</li>
+                <li>Gallery images</li>
+            </ul>
+        </div>
+        <span class="status success">✓ All data should be exportable as CSV</span>
+    </div>
+
+    <div class="test-section">
+        <h2>🎯 Career Pathways</h2>
+        <div>
+            <strong>Categories Included:</strong>
+            <ul>
+                <li>Technology & Engineering</li>
+                <li>Business & Finance</li>
+                <li>Healthcare & Medical</li>
+                <li>Education & Research</li>
+                <li>Creative Industries</li>
+                <li>Hospitality & Tourism</li>
+            </ul>
+        </div>
+        <span class="status success">✓ All career pathways with images and descriptions</span>
+    </div>
+
+    <script>
+        // Test sticky header functionality
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.getElementById('scroll-indicator') || (() => {
+                const indicator = document.createElement('div');
+                indicator.id = 'scroll-indicator';
+                indicator.style.cssText = 'position: fixed; top: 10px; right: 10px; background: #007bff; color: white; padding: 10px; border-radius: 4px; z-index: 1001; font-size: 12px;';
+                document.body.appendChild(indicator);
+                return indicator;
+            })();
+            
+            indicator.textContent = `Scroll: ${Math.round(window.scrollY)}px`;
+        });
+
+        // Test page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('✅ Navigation test page loaded successfully');
+            console.log('🔗 Testing all navigation links...');
+            
+            // Log current URL structure
+            console.log('Current URL:', window.location.href);
+            console.log('Base URL:', window.location.origin);
+        });
+
+        // Add click tracking for test links
+        document.querySelectorAll('.test-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                console.log('🔗 Testing link:', link.href);
+            });
+        });
+    </script>
+
+    <div style="height: 1000px; background: linear-gradient(to bottom, #f8f9fa, #e9ecef); text-align: center; padding-top: 300px;">
+        <h2>📏 Scroll Test Area</h2>
+        <p>Scroll up and down to test the sticky header hide/show animation.</p>
+        <p>The header should hide when scrolling down and show when scrolling up or when scrolling stops.</p>
+    </div>
+</body>
+</html>

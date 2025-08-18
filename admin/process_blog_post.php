@@ -35,7 +35,44 @@ try {
     $content = $_POST['content'] ?? '';
     $excerpt = $_POST['excerpt'] ?? '';
     $author = $_POST['author'] ?? 'NexaEducation Admin';
-    $featured_image = $_POST['featured_image'] ?? '';
+    
+    // Handle image upload
+    $featured_image = '';
+    if (isset($_FILES['featured_image']) && $_FILES['featured_image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = '../uploads/blog/';
+        
+        // Create directory if it doesn't exist
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+        
+        $fileInfo = pathinfo($_FILES['featured_image']['name']);
+        $extension = strtolower($fileInfo['extension']);
+        
+        // Validate file type
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (!in_array($extension, $allowedTypes)) {
+            echo json_encode(['success' => false, 'message' => 'Invalid file type. Please upload JPG, PNG, GIF, or WebP images.']);
+            exit;
+        }
+        
+        // Validate file size (5MB max)
+        if ($_FILES['featured_image']['size'] > 5 * 1024 * 1024) {
+            echo json_encode(['success' => false, 'message' => 'File too large. Maximum size is 5MB.']);
+            exit;
+        }
+        
+        // Generate unique filename
+        $filename = 'blog_' . time() . '_' . uniqid() . '.' . $extension;
+        $filePath = $uploadDir . $filename;
+        
+        if (move_uploaded_file($_FILES['featured_image']['tmp_name'], $filePath)) {
+            $featured_image = 'uploads/blog/' . $filename;
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to upload image.']);
+            exit;
+        }
+    }
     
     // Validate required fields
     if (empty($title) || empty($content)) {
