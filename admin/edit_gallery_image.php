@@ -1,0 +1,36 @@
+<?php
+session_start();
+require_once 'database.php';
+
+if (!isset($_SESSION['admin_logged_in'])) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+    exit;
+}
+
+try {
+    $input = json_decode(file_get_contents('php://input'), true);
+    if (!isset($input['id'])) {
+        throw new Exception('Gallery Image ID is required');
+    }
+    $db = new Database();
+    $conn = $db->getConnection();
+    $stmt = $conn->prepare("UPDATE gallery SET title = ?, description = ?, category = ?, is_featured = ?, status = ? WHERE id = ?");
+    $stmt->execute([
+        $input['title'],
+        $input['description'],
+        $input['category'],
+        $input['is_featured'],
+        $input['status'],
+        $input['id']
+    ]);
+    echo json_encode(['success' => true, 'message' => 'Gallery image updated successfully']);
+} catch(Exception $e) {
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+}
+?>
