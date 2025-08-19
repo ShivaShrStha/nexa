@@ -1,1 +1,4 @@
 /.DS_Store
+.env
+*.env
+admin/nexa_data.db
