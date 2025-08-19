@@ -766,6 +766,65 @@ if (isset($_GET['logout'])) {
                                     <td><img src="../${image.image_path}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"></td>
                                     <td>${image.title}</td>
                                     <td><span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">${image.category}</span></td>
+                                    <td>${image.is_featured ? '⭐ Yes' : 'No'}</td>
+                                    <td><span style="color: ${image.status === 'published' ? 'green' : 'orange'};">${image.status}</span></td>
+                                    <td>${new Date(image.created_at).toLocaleDateString()}</td>
+                                    <td>
+                                        <button onclick='openEditGalleryModal(${JSON.stringify(image)})' style='background:#007bff;color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;'>Edit</button>
+                                        <button onclick='deleteGalleryImage(${image.id})' style='background: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;'>Delete</button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                    } else {
+                        html += '<tr><td colspan="7" class="no-data">No gallery images found</td></tr>';
+                    }
+                    
+                    html += '</tbody></table>';
+                    document.getElementById('galleryTable').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading gallery images:', error));
+        }
+
+        function deleteGalleryImage(id) {
+            if (confirm('Are you sure you want to delete this image?')) {
+                fetch('delete_gallery_image.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({id: id})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        loadGalleryImages();
+                        showNotification('Image deleted successfully', 'success');
+                    } else {
+                        showNotification('Error deleting image: ' + data.message, 'error');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        // Gallery form submission
+        document.getElementById('galleryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('process_gallery_upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('Image uploaded successfully!', 'success');
+                    this.reset();
+                    loadGalleryImages();
+                } else {
                     showNotification('Error: ' + data.message, 'error');
                 }
             })
@@ -1015,15 +1074,12 @@ if (isset($_GET['logout'])) {
         }
 
         function editBlogPost(id) {
-            // Fetch blog post data and show modal (implement modal as needed)
             fetch('get_blog_posts.php')
                 .then(res => res.json())
                 .then(posts => {
                     const post = posts.find(p => p.id == id);
                     if (post) {
-                        // Populate modal fields and show modal (implement modal UI)
-                        // Example: openEditBlogModal(post);
-                        alert('Edit modal for blog post not yet implemented.');
+                        openEditBlogModal(post);
                     }
                 });
         }
@@ -1050,15 +1106,12 @@ if (isset($_GET['logout'])) {
         }
 
         function editCourseRequest(id) {
-            // Fetch course request data and show modal (implement modal as needed)
             fetch('get_course_requests.php')
                 .then(res => res.json())
                 .then(requests => {
                     const req = requests.find(r => r.id == id);
                     if (req) {
-                        // Populate modal fields and show modal (implement modal UI)
-                        // Example: openEditCourseRequestModal(req);
-                        alert('Edit modal for course request not yet implemented.');
+                        openEditCourseRequestModal(req);
                     }
                 });
         }
@@ -1085,15 +1138,12 @@ if (isset($_GET['logout'])) {
         }
 
         function editNewsletterSubscription(id) {
-            // Fetch newsletter data and show modal (implement modal as needed)
             fetch('get_newsletter.php')
                 .then(res => res.json())
                 .then(subs => {
                     const sub = subs.find(s => s.id == id);
                     if (sub) {
-                        // Populate modal fields and show modal (implement modal UI)
-                        // Example: openEditNewsletterModal(sub);
-                        alert('Edit modal for newsletter not yet implemented.');
+                        openEditNewsletterModal(sub);
                     }
                 });
         }
@@ -1120,18 +1170,195 @@ if (isset($_GET['logout'])) {
         }
 
         function editContactMessage(id) {
-            // Fetch contact message data and show modal (implement modal as needed)
             fetch('get_contact_messages.php')
                 .then(res => res.json())
                 .then(msgs => {
                     const msg = msgs.find(m => m.id == id);
                     if (msg) {
-                        // Populate modal fields and show modal (implement modal UI)
-                        // Example: openEditContactMessageModal(msg);
-                        alert('Edit modal for contact message not yet implemented.');
+                        openEditContactMessageModal(msg);
                     }
                 });
         }
+
+        // Add missing showNotification function
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                transition: all 0.3s ease;
+                ${type === 'success' ? 'background: #28a745;' : 'background: #dc3545;'}
+            `;
+            notification.textContent = message;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // --- Blog Post Edit Modal Logic ---
+        function openEditBlogModal(post) {
+            document.getElementById('editBlogId').value = post.id;
+            document.getElementById('editBlogTitle').value = post.title;
+            document.getElementById('editBlogAuthor').value = post.author;
+            document.getElementById('editBlogExcerpt').value = post.excerpt || '';
+            document.getElementById('editBlogStatus').value = post.status;
+            document.getElementById('editBlogModal').style.display = 'flex';
+        }
+        
+        function closeEditBlogModal() {
+            document.getElementById('editBlogModal').style.display = 'none';
+        }
+        
+        document.getElementById('editBlogForm').onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editBlogId').value;
+            const title = document.getElementById('editBlogTitle').value;
+            const author = document.getElementById('editBlogAuthor').value;
+            const excerpt = document.getElementById('editBlogExcerpt').value;
+            const status = document.getElementById('editBlogStatus').value;
+            fetch('edit_blog_post.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, title, author, excerpt, status })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    closeEditBlogModal();
+                    loadBlogPosts();
+                    showNotification('Blog post updated successfully', 'success');
+                } else {
+                    showNotification('Error: ' + data.message, 'error');
+                }
+            });
+        };
+
+        // --- Course Request Edit Modal Logic ---
+        function openEditCourseRequestModal(req) {
+            document.getElementById('editCourseRequestId').value = req.id;
+            document.getElementById('editCourseFirstName').value = req.first_name;
+            document.getElementById('editCourseLastName').value = req.last_name;
+            document.getElementById('editCourseEmail').value = req.email;
+            document.getElementById('editCoursePhone').value = req.phone;
+            document.getElementById('editCourseSubject').value = req.subject;
+            document.getElementById('editCourseRequestModal').style.display = 'flex';
+        }
+        
+        function closeEditCourseRequestModal() {
+            document.getElementById('editCourseRequestModal').style.display = 'none';
+        }
+        
+        document.getElementById('editCourseRequestForm').onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editCourseRequestId').value;
+            const first_name = document.getElementById('editCourseFirstName').value;
+            const last_name = document.getElementById('editCourseLastName').value;
+            const email = document.getElementById('editCourseEmail').value;
+            const phone = document.getElementById('editCoursePhone').value;
+            const subject = document.getElementById('editCourseSubject').value;
+            fetch('edit_course_request.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, first_name, last_name, email, phone, subject })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    closeEditCourseRequestModal();
+                    loadCourseRequests();
+                    showNotification('Course request updated successfully', 'success');
+                } else {
+                    showNotification('Error: ' + data.message, 'error');
+                }
+            });
+        };
+
+        // --- Newsletter Edit Modal Logic ---
+        function openEditNewsletterModal(sub) {
+            document.getElementById('editNewsletterId').value = sub.id;
+            document.getElementById('editNewsletterEmail').value = sub.email;
+            document.getElementById('editNewsletterModal').style.display = 'flex';
+        }
+        
+        function closeEditNewsletterModal() {
+            document.getElementById('editNewsletterModal').style.display = 'none';
+        }
+        
+        document.getElementById('editNewsletterForm').onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editNewsletterId').value;
+            const email = document.getElementById('editNewsletterEmail').value;
+            fetch('edit_newsletter.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, email })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    closeEditNewsletterModal();
+                    loadNewsletterSubscriptions();
+                    showNotification('Newsletter subscription updated successfully', 'success');
+                } else {
+                    showNotification('Error: ' + data.message, 'error');
+                }
+            });
+        };
+
+        // --- Contact Message Edit Modal Logic ---
+        function openEditContactMessageModal(msg) {
+            document.getElementById('editContactMessageId').value = msg.id;
+            document.getElementById('editContactName').value = msg.name;
+            document.getElementById('editContactEmail').value = msg.email;
+            document.getElementById('editContactSubject').value = msg.subject;
+            document.getElementById('editContactMessage').value = msg.message;
+            document.getElementById('editContactMessageModal').style.display = 'flex';
+        }
+        
+        function closeEditContactMessageModal() {
+            document.getElementById('editContactMessageModal').style.display = 'none';
+        }
+        
+        document.getElementById('editContactMessageForm').onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editContactMessageId').value;
+            const name = document.getElementById('editContactName').value;
+            const email = document.getElementById('editContactEmail').value;
+            const subject = document.getElementById('editContactSubject').value;
+            const message = document.getElementById('editContactMessage').value;
+            fetch('edit_contact_message.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, name, email, subject, message })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    closeEditContactMessageModal();
+                    loadContactMessages();
+                    showNotification('Contact message updated successfully', 'success');
+                } else {
+                    showNotification('Error: ' + data.message, 'error');
+                }
+            });
+        };
     </script>
 </body>
 </html>
