@@ -217,6 +217,7 @@ if (isset($_GET['logout'])) {
             }
         }
     </style>
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 </head>
 <body>
     <div class="admin-header">
@@ -477,6 +478,7 @@ if (isset($_GET['logout'])) {
                                     <th>Phone</th>
                                     <th>Subject</th>
                                     <th>Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -492,6 +494,10 @@ if (isset($_GET['logout'])) {
                                 <td>${request.phone}</td>
                                 <td>${request.subject}</td>
                                 <td>${new Date(request.created_at).toLocaleDateString()}</td>
+                                <td>
+                                    <button onclick="editCourseRequest(${request.id})" style="background:#007bff;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Edit</button>
+                                    <button onclick="deleteCourseRequest(${request.id})" style="background:#dc3545;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Delete</button>
+                                </td>
                             </tr>
                         `;
                     });
@@ -523,6 +529,7 @@ if (isset($_GET['logout'])) {
                                     <th>ID</th>
                                     <th>Email</th>
                                     <th>Subscription Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -534,6 +541,10 @@ if (isset($_GET['logout'])) {
                                 <td>${subscription.id}</td>
                                 <td>${subscription.email}</td>
                                 <td>${new Date(subscription.created_at).toLocaleDateString()}</td>
+                                <td>
+                                    <button onclick="editNewsletterSubscription(${subscription.id})" style="background:#007bff;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Edit</button>
+                                    <button onclick="deleteNewsletterSubscription(${subscription.id})" style="background:#dc3545;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Delete</button>
+                                </td>
                             </tr>
                         `;
                     });
@@ -568,6 +579,7 @@ if (isset($_GET['logout'])) {
                                     <th>Subject</th>
                                     <th>Message</th>
                                     <th>Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -582,6 +594,10 @@ if (isset($_GET['logout'])) {
                                 <td>${message.subject}</td>
                                 <td>${message.message.substring(0, 50)}${message.message.length > 50 ? '...' : ''}</td>
                                 <td>${new Date(message.created_at).toLocaleDateString()}</td>
+                                <td>
+                                    <button onclick="editContactMessage(${message.id})" style="background:#007bff;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Edit</button>
+                                    <button onclick="deleteContactMessage(${message.id})" style="background:#dc3545;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Delete</button>
+                                </td>
                             </tr>
                         `;
                     });
@@ -616,6 +632,7 @@ if (isset($_GET['logout'])) {
                                     <th>Excerpt</th>
                                     <th>Status</th>
                                     <th>Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -630,6 +647,10 @@ if (isset($_GET['logout'])) {
                                 <td>${post.excerpt ? post.excerpt.substring(0, 50) + '...' : 'No excerpt'}</td>
                                 <td><span style="color: green;">●</span> ${post.status}</td>
                                 <td>${new Date(post.created_at).toLocaleDateString()}</td>
+                                <td>
+                                    <button onclick="editBlogPost(${post.id})" style="background:#007bff;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Edit</button>
+                                    <button onclick="deleteBlogPost(${post.id})" style="background:#dc3545;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Delete</button>
+                                </td>
                             </tr>
                         `;
                     });
@@ -674,6 +695,7 @@ if (isset($_GET['logout'])) {
                                     <td><span style="color: ${image.status === 'published' ? 'green' : 'orange'};">${image.status}</span></td>
                                     <td>${new Date(image.created_at).toLocaleDateString()}</td>
                                     <td>
+                                        <button onclick="editGalleryImage(${image.id})" style="background:#007bff;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Edit</button>
                                         <button onclick="deleteGalleryImage(${image.id})" style="background: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;">Delete</button>
                                     </td>
                                 </tr>

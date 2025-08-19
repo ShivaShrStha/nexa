@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>Contact Us | NexaEducationCountaltancy</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <style>
     /* Remove old .contact-main and .contact-card styles that restrict width */
     .contact-main { max-width: unset; margin: 0; padding: 0; }

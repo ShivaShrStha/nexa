@@ -9,6 +9,7 @@
   <title>NexaEducationCountaltancy - Study in Japan</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
 </head>
 <body>
   <header class="site-header">
