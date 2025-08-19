@@ -44,14 +44,14 @@
       </div>
     </div>
   </header>
-  <header class="about-header">
-    <h1>About NexaEducationCountaltancy</h1>
-    <p>Empowering Nepali students for success in Japan through expert guidance, mentorship, and support.</p>
+  <header class="about-header" style="background: #3661b7; color: #fff; padding: 48px 0; text-align: center;">
+    <h1 style="font-size:2.4rem; font-weight:800; margin-bottom:12px;">About NexaEducationCountaltancy</h1>
+    <p style="font-size:1.2rem; font-weight:400; margin-bottom:18px;">Empowering Nepali students for success in Japan through expert guidance, mentorship, and support.</p>
     <div class="container">
-      <div class="top-left">
-        <a href="mailto:info@nexaeduconsult.com" class="top-email">info@nexaeduconsult.com</a>
+      <div class="top-left" style="font-size:1.1rem; font-weight:600; color:#eaf0ff; margin-top:10px;">
+        <a href="mailto:info@nexaeduconsult.com" class="top-email" style="color:#eaf0ff; text-decoration:underline;">info@nexaeduconsult.com</a>
         <span class="sep">&nbsp;|&nbsp;</span>
-        <a href="tel:+0477333454221" class="call-link" aria-label="Call Nexa Education">+04 77 333 454 221</a>
+        <a href="tel:+0477333454221" class="call-link" aria-label="Call Nexa Education" style="color:#eaf0ff; text-decoration:underline;">+04 77 333 454 221</a>
       </div>
     </div>
   </header>

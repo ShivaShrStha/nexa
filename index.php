@@ -26,7 +26,7 @@
     <div class="navwrap">
       <div class="container navcontainer">
         <a class="logo" href="/">
-          <img src="assets/img/nexalogoTrans.png" alt="NexaEducation Logo" class="logo-img" style="height:60px;">
+          <img src="assets/img/nexalogoTrans.png" alt="NexaEducation Logo" class="logo-img" style="height:90px;">
         </a>
         <!-- hamburger + overlay required by assets/js/main.js for mobile nav -->
         <button id="hamburger" class="hamburger" aria-expanded="false" aria-controls="mainnav" aria-label="Open menu">☰</button>
@@ -134,8 +134,8 @@
           </article>
 
           <article class="card">
-            <img src="https://images.unsplash.com/photo-1541746972996-4e0b0f93e586?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3"
-                 srcset="https://images.unsplash.com/photo-1541746972996-4e0b0f93e586?q=80&w=400 400w, https://images.unsplash.com/photo-1541746972996-4e0b0f93e586?q=80&w=800 800w, https://images.unsplash.com/photo-1541746972996-4e0b0f93e586?q=80&w=1200 1200w"
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3"
+                 srcset="https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=400 400w, https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=800 800w, https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=1200 1200w"
                  sizes="(max-width:640px) 100vw, (max-width:1000px) 48vw, 33vw"
                  loading="lazy" alt="Career Pathways in Japan - Modern Tokyo skyline with business district">
             <div class="card-body">
@@ -306,19 +306,20 @@
           </div>
         </div>
 
-        <aside class="request-card">
-          <h3>Request Free Course</h3>
-          <form id="requestForm">
-            <div class="row">
-              <input name="first_name" placeholder="First name" required>
-              <input name="last_name" placeholder="Last name" required>
+        <aside class="request-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 420px; background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(102,126,234,0.10); padding: 40px 32px; max-width: 420px; margin: 0 auto;">
+          <h3 style="font-size: 2rem; font-weight: 700; color: #222; text-align: center; margin-bottom: 8px;">Request Free Course</h3>
+          <div style="width: 60px; height: 4px; background: linear-gradient(90deg,#667eea,#764ba2); border-radius: 2px; margin: 0 auto 24px auto;"></div>
+          <form id="requestForm" style="width: 100%; display: flex; flex-direction: column; gap: 18px;">
+            <div style="display: flex; gap: 16px; width: 100%;">
+              <input name="first_name" placeholder="First name" required style="flex:1; min-width:0; padding: 14px 12px; font-size: 1.05rem; border-radius: 8px; border: 1px solid #e3e6f0; background: #f8faff;">
+              <input name="last_name" placeholder="Last name" required style="flex:1; min-width:0; padding: 14px 12px; font-size: 1.05rem; border-radius: 8px; border: 1px solid #e3e6f0; background: #f8faff;">
             </div>
-            <div class="row">
-              <input name="email" type="email" placeholder="Email Address" required>
-              <input name="phone" placeholder="Phone Number" required>
+            <div style="display: flex; gap: 16px; width: 100%;">
+              <input name="email" type="email" placeholder="Email Address" required style="flex:1; min-width:0; padding: 14px 12px; font-size: 1.05rem; border-radius: 8px; border: 1px solid #e3e6f0; background: #f8faff;">
+              <input name="phone" placeholder="Phone Number" required style="flex:1; min-width:0; padding: 14px 12px; font-size: 1.05rem; border-radius: 8px; border: 1px solid #e3e6f0; background: #f8faff;">
             </div>
-            <input name="subject" placeholder="Subject" class="full" required>
-            <button class="btn btn-primary full" type="submit">Get Free Course Now</button>
+            <input name="subject" placeholder="Subject" class="full" required style="padding: 14px 12px; font-size: 1.05rem; border-radius: 8px; border: 1px solid #e3e6f0; background: #f8faff;">
+            <button class="btn btn-primary full" type="submit" style="padding: 16px 0; font-size: 1.1rem; border-radius: 8px; margin-top: 8px;">Get Free Course Now</button>
             <div class="form-message" id="requestMessage" style="display:none; margin-top:10px; padding:10px; border-radius:5px;"></div>
           </form>
         </aside>

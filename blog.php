@@ -72,11 +72,9 @@ try {
   </header>
 
   <main>
-    <section class="blog-hero reveal" style="background: linear-gradient(90deg, #3661b7 0%, #4f8edc 100%); color: #fff; padding: 3rem 0;">
-      <div class="container">
-        <h1 class="section-title" style="font-size:2.5rem;">NexaEducation Blog</h1>
-        <p class="section-sub" style="font-size:1.2rem; max-width:600px; margin:0 auto; color: white;">Insights, tips, and stories for Nepali students planning to study in Japan. Stay updated with the latest news, guides, and success stories from NexaEducationCountaltancy.</p>
-      </div>
+    <section class="blog-hero reveal" style="background: #3661b7; color: #fff; padding: 80px 0; text-align: center;">
+      <h1 style="font-size:2.4rem; font-weight:800; margin-bottom:12px;">NexaEducation Blog</h1>
+      <p style="font-size:1.2rem; font-weight:400; margin-bottom:18px;">Insights, tips, and stories for Nepali students planning to study in Japan. Stay updated with the latest news, guides, and success stories from NexaEducationCountaltancy.</p>
     </section>
 
     <section class="blog-list container reveal">

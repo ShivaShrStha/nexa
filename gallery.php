@@ -278,11 +278,9 @@ try {
   </header>
 
   <main>
-    <section class="gallery-hero reveal">
-      <div class="container">
-        <h1 class="section-title" style="font-size:2.5rem;">NexaEducation Gallery</h1>
-        <p class="section-sub" style="font-size:1.2rem; max-width:600px; margin:0 auto; color: white;">Explore moments from our journey helping Nepali students achieve their dreams of studying in Japan. Success stories, events, and memorable experiences.</p>
-      </div>
+    <section class="gallery-hero reveal" style="background: #3661b7; color: #fff; padding: 48px 0; text-align: center;">
+      <h1 style="font-size:2.4rem; font-weight:800; margin-bottom:12px;">NexaEducation Gallery</h1>
+      <p style="font-size:1.2rem; font-weight:400; margin-bottom:18px;">Explore moments from our journey helping Nepali students achieve their dreams of studying in Japan. Success stories, events, and memorable experiences.</p>
     </section>
 
     <section class="container reveal" style="padding: 60px 0;">
