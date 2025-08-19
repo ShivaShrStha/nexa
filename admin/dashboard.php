@@ -388,6 +388,22 @@ if (isset($_GET['logout'])) {
         </div>
     </div>
     
+    <!-- Modal for editing gallery image -->
+    <div id="editGalleryModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+      <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:400px; width:100%; position:relative;">
+        <h3 style="margin-bottom:18px;">Edit Gallery Image</h3>
+        <form id="editGalleryForm">
+          <input type="hidden" name="id" id="editGalleryId">
+          <div style="margin-bottom:12px;"><label>Title</label><input type="text" name="title" id="editGalleryTitle" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Description</label><textarea name="description" id="editGalleryDescription" style="width:100%;padding:8px;"></textarea></div>
+          <div style="margin-bottom:12px;"><label>Category</label><input type="text" name="category" id="editGalleryCategory" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Status</label><select name="status" id="editGalleryStatus" style="width:100%;padding:8px;"><option value="published">Published</option><option value="draft">Draft</option></select></div>
+          <div style="margin-bottom:12px;"><label>Featured</label><select name="is_featured" id="editGalleryFeatured" style="width:100%;padding:8px;"><option value="1">Yes</option><option value="0">No</option></select></div>
+          <button type="submit" style="background:#007bff;color:#fff;padding:10px 18px;border:none;border-radius:6px;">Save Changes</button>
+          <button type="button" onclick="closeEditGalleryModal()" style="margin-left:10px;">Cancel</button>
+        </form>
+      </div>
+    </div>
     <script>
         // Navigation functionality
         function showSection(sectionId) {
@@ -695,8 +711,8 @@ if (isset($_GET['logout'])) {
                                     <td><span style="color: ${image.status === 'published' ? 'green' : 'orange'};">${image.status}</span></td>
                                     <td>${new Date(image.created_at).toLocaleDateString()}</td>
                                     <td>
-                                        <button onclick="editGalleryImage(${image.id})" style="background:#007bff;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Edit</button>
-                                        <button onclick="deleteGalleryImage(${image.id})" style="background: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;">Delete</button>
+                                        <button onclick='openEditGalleryModal(${JSON.stringify(image)})' style='background:#007bff;color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;'>Edit</button>
+                                        <button onclick='deleteGalleryImage(${image.id})' style='background: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;'>Delete</button>
                                     </td>
                                 </tr>
                             `;
@@ -939,6 +955,43 @@ if (isset($_GET['logout'])) {
                 showNotification('Export not supported in this browser', 'error');
             }
         }
+
+        function openEditGalleryModal(image) {
+          document.getElementById('editGalleryId').value = image.id;
+          document.getElementById('editGalleryTitle').value = image.title;
+          document.getElementById('editGalleryDescription').value = image.description || '';
+          document.getElementById('editGalleryCategory').value = image.category;
+          document.getElementById('editGalleryStatus').value = image.status;
+          document.getElementById('editGalleryFeatured').value = image.is_featured ? '1' : '0';
+          document.getElementById('editGalleryModal').style.display = 'flex';
+        }
+        function closeEditGalleryModal() {
+          document.getElementById('editGalleryModal').style.display = 'none';
+        }
+        document.getElementById('editGalleryForm').onsubmit = function(e) {
+          e.preventDefault();
+          const id = document.getElementById('editGalleryId').value;
+          const title = document.getElementById('editGalleryTitle').value;
+          const description = document.getElementById('editGalleryDescription').value;
+          const category = document.getElementById('editGalleryCategory').value;
+          const status = document.getElementById('editGalleryStatus').value;
+          const is_featured = document.getElementById('editGalleryFeatured').value;
+          fetch('admin/edit_gallery_image.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id, title, description, category, status, is_featured})
+          })
+          .then(res => res.json())
+          .then(data => {
+            if(data.success){
+              closeEditGalleryModal();
+              loadGalleryImages();
+              alert('Gallery image updated successfully');
+            }else{
+              alert('Error: ' + data.message);
+            }
+          });
+        };
     </script>
 </body>
 </html>

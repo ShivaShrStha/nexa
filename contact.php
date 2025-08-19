@@ -223,6 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       .contact-left, .contact-right {
         margin-bottom: 18px;
         padding: 18px 8px;
+        min-width: 0;
       }
       .map-embed iframe {
         min-height: 180px;
@@ -233,6 +234,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       .contact-form {
         grid-template-columns: 1fr;
         padding: 18px 6px 12px 6px;
+        box-shadow: none;
+      }
+      .contact-form input,
+      .contact-form textarea,
+      .contact-form button {
+        width: 100%;
+        font-size: 1rem;
+        margin-bottom: 10px;
       }
       .contact-form input[name="name"],
       .contact-form input[name="email"],
@@ -241,6 +250,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       .contact-form button,
       .contact-success {
         grid-column: 1;
+      }
+      .contact-left, .contact-right {
+        padding: 12px 4px;
+      }
+      .contact-title {
+        font-size: 1.5rem;
+      }
+      .contact-info {
+        font-size: 1rem;
+      }
+    }
+    @media (max-width: 500px) {
+      .contact-main {
+        padding: 0;
+      }
+      .contact-flex {
+        padding: 0 2px;
+      }
+      .contact-left, .contact-right {
+        padding: 8px 2px;
+        border-radius: 10px;
+      }
+      .contact-title {
+        font-size: 1.1rem;
+      }
+      .contact-info {
+        font-size: 0.95rem;
+      }
+      .contact-details {
+        font-size: 0.95rem;
+      }
+      .map-embed iframe {
+        min-height: 120px;
+        max-height: 180px;
       }
     }
   </style>
