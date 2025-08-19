@@ -404,6 +404,65 @@ if (isset($_GET['logout'])) {
         </form>
       </div>
     </div>
+
+    <!-- Edit Blog Post Modal -->
+    <div id="editBlogModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+      <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:500px; width:100%; position:relative;">
+        <h3 style="margin-bottom:18px;">Edit Blog Post</h3>
+        <form id="editBlogForm">
+          <input type="hidden" name="id" id="editBlogId">
+          <div style="margin-bottom:12px;"><label>Title</label><input type="text" name="title" id="editBlogTitle" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Author</label><input type="text" name="author" id="editBlogAuthor" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Excerpt</label><textarea name="excerpt" id="editBlogExcerpt" style="width:100%;padding:8px;"></textarea></div>
+          <div style="margin-bottom:12px;"><label>Status</label><select name="status" id="editBlogStatus" style="width:100%;padding:8px;"><option value="published">Published</option><option value="draft">Draft</option></select></div>
+          <button type="submit" style="background:#007bff;color:#fff;padding:10px 18px;border:none;border-radius:6px;">Save Changes</button>
+          <button type="button" onclick="closeEditBlogModal()" style="margin-left:10px;">Cancel</button>
+        </form>
+      </div>
+    </div>
+    <!-- Edit Course Request Modal -->
+    <div id="editCourseRequestModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+      <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:500px; width:100%; position:relative;">
+        <h3 style="margin-bottom:18px;">Edit Course Request</h3>
+        <form id="editCourseRequestForm">
+          <input type="hidden" name="id" id="editCourseRequestId">
+          <div style="margin-bottom:12px;"><label>First Name</label><input type="text" name="first_name" id="editCourseFirstName" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Last Name</label><input type="text" name="last_name" id="editCourseLastName" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Email</label><input type="email" name="email" id="editCourseEmail" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Phone</label><input type="text" name="phone" id="editCoursePhone" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Subject</label><input type="text" name="subject" id="editCourseSubject" style="width:100%;padding:8px;"></div>
+          <button type="submit" style="background:#007bff;color:#fff;padding:10px 18px;border:none;border-radius:6px;">Save Changes</button>
+          <button type="button" onclick="closeEditCourseRequestModal()" style="margin-left:10px;">Cancel</button>
+        </form>
+      </div>
+    </div>
+    <!-- Edit Newsletter Modal -->
+    <div id="editNewsletterModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+      <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:400px; width:100%; position:relative;">
+        <h3 style="margin-bottom:18px;">Edit Newsletter Subscription</h3>
+        <form id="editNewsletterForm">
+          <input type="hidden" name="id" id="editNewsletterId">
+          <div style="margin-bottom:12px;"><label>Email</label><input type="email" name="email" id="editNewsletterEmail" style="width:100%;padding:8px;"></div>
+          <button type="submit" style="background:#007bff;color:#fff;padding:10px 18px;border:none;border-radius:6px;">Save Changes</button>
+          <button type="button" onclick="closeEditNewsletterModal()" style="margin-left:10px;">Cancel</button>
+        </form>
+      </div>
+    </div>
+    <!-- Edit Contact Message Modal -->
+    <div id="editContactMessageModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+      <div style="background:#fff; padding:32px 24px; border-radius:12px; max-width:500px; width:100%; position:relative;">
+        <h3 style="margin-bottom:18px;">Edit Contact Message</h3>
+        <form id="editContactMessageForm">
+          <input type="hidden" name="id" id="editContactMessageId">
+          <div style="margin-bottom:12px;"><label>Name</label><input type="text" name="name" id="editContactName" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Email</label><input type="email" name="email" id="editContactEmail" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Subject</label><input type="text" name="subject" id="editContactSubject" style="width:100%;padding:8px;"></div>
+          <div style="margin-bottom:12px;"><label>Message</label><textarea name="message" id="editContactMessage" style="width:100%;padding:8px;"></textarea></div>
+          <button type="submit" style="background:#007bff;color:#fff;padding:10px 18px;border:none;border-radius:6px;">Save Changes</button>
+          <button type="button" onclick="closeEditContactMessageModal()" style="margin-left:10px;">Cancel</button>
+        </form>
+      </div>
+    </div>
     <script>
         // Navigation functionality
         function showSection(sectionId) {
@@ -707,65 +766,6 @@ if (isset($_GET['logout'])) {
                                     <td><img src="../${image.image_path}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"></td>
                                     <td>${image.title}</td>
                                     <td><span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">${image.category}</span></td>
-                                    <td>${image.is_featured ? '⭐ Yes' : 'No'}</td>
-                                    <td><span style="color: ${image.status === 'published' ? 'green' : 'orange'};">${image.status}</span></td>
-                                    <td>${new Date(image.created_at).toLocaleDateString()}</td>
-                                    <td>
-                                        <button onclick='openEditGalleryModal(${JSON.stringify(image)})' style='background:#007bff;color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;'>Edit</button>
-                                        <button onclick='deleteGalleryImage(${image.id})' style='background: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;'>Delete</button>
-                                    </td>
-                                </tr>
-                            `;
-                        });
-                    } else {
-                        html += '<tr><td colspan="7" class="no-data">No gallery images found</td></tr>';
-                    }
-                    
-                    html += '</tbody></table>';
-                    document.getElementById('galleryTable').innerHTML = html;
-                })
-                .catch(error => console.error('Error loading gallery images:', error));
-        }
-
-        function deleteGalleryImage(id) {
-            if (confirm('Are you sure you want to delete this image?')) {
-                fetch('delete_gallery_image.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({id: id})
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        loadGalleryImages();
-                        showNotification('Image deleted successfully', 'success');
-                    } else {
-                        showNotification('Error deleting image: ' + data.message, 'error');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            }
-        }
-
-        // Gallery form submission
-        document.getElementById('galleryForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            
-            fetch('process_gallery_upload.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showNotification('Image uploaded successfully!', 'success');
-                    this.reset();
-                    loadGalleryImages();
-                } else {
                     showNotification('Error: ' + data.message, 'error');
                 }
             })
@@ -992,6 +992,146 @@ if (isset($_GET['logout'])) {
             }
           });
         };
+
+        // --- CRUD JS for Blog Posts ---
+        function deleteBlogPost(id) {
+            if (confirm('Are you sure you want to delete this blog post?')) {
+                fetch('delete_blog_post.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        loadBlogPosts();
+                        showNotification('Blog post deleted successfully', 'success');
+                    } else {
+                        showNotification('Error deleting blog post: ' + data.message, 'error');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function editBlogPost(id) {
+            // Fetch blog post data and show modal (implement modal as needed)
+            fetch('get_blog_posts.php')
+                .then(res => res.json())
+                .then(posts => {
+                    const post = posts.find(p => p.id == id);
+                    if (post) {
+                        // Populate modal fields and show modal (implement modal UI)
+                        // Example: openEditBlogModal(post);
+                        alert('Edit modal for blog post not yet implemented.');
+                    }
+                });
+        }
+
+        // --- CRUD JS for Course Requests ---
+        function deleteCourseRequest(id) {
+            if (confirm('Are you sure you want to delete this course request?')) {
+                fetch('delete_course_request.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        loadCourseRequests();
+                        showNotification('Course request deleted successfully', 'success');
+                    } else {
+                        showNotification('Error deleting course request: ' + data.message, 'error');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function editCourseRequest(id) {
+            // Fetch course request data and show modal (implement modal as needed)
+            fetch('get_course_requests.php')
+                .then(res => res.json())
+                .then(requests => {
+                    const req = requests.find(r => r.id == id);
+                    if (req) {
+                        // Populate modal fields and show modal (implement modal UI)
+                        // Example: openEditCourseRequestModal(req);
+                        alert('Edit modal for course request not yet implemented.');
+                    }
+                });
+        }
+
+        // --- CRUD JS for Newsletter ---
+        function deleteNewsletterSubscription(id) {
+            if (confirm('Are you sure you want to delete this newsletter subscription?')) {
+                fetch('delete_newsletter.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        loadNewsletterSubscriptions();
+                        showNotification('Newsletter subscription deleted successfully', 'success');
+                    } else {
+                        showNotification('Error deleting newsletter subscription: ' + data.message, 'error');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function editNewsletterSubscription(id) {
+            // Fetch newsletter data and show modal (implement modal as needed)
+            fetch('get_newsletter.php')
+                .then(res => res.json())
+                .then(subs => {
+                    const sub = subs.find(s => s.id == id);
+                    if (sub) {
+                        // Populate modal fields and show modal (implement modal UI)
+                        // Example: openEditNewsletterModal(sub);
+                        alert('Edit modal for newsletter not yet implemented.');
+                    }
+                });
+        }
+
+        // --- CRUD JS for Contact Messages ---
+        function deleteContactMessage(id) {
+            if (confirm('Are you sure you want to delete this contact message?')) {
+                fetch('delete_contact_message.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        loadContactMessages();
+                        showNotification('Contact message deleted successfully', 'success');
+                    } else {
+                        showNotification('Error deleting contact message: ' + data.message, 'error');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function editContactMessage(id) {
+            // Fetch contact message data and show modal (implement modal as needed)
+            fetch('get_contact_messages.php')
+                .then(res => res.json())
+                .then(msgs => {
+                    const msg = msgs.find(m => m.id == id);
+                    if (msg) {
+                        // Populate modal fields and show modal (implement modal UI)
+                        // Example: openEditContactMessageModal(msg);
+                        alert('Edit modal for contact message not yet implemented.');
+                    }
+                });
+        }
     </script>
 </body>
 </html>
