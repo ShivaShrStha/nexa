@@ -1,4 +1,6 @@
 <?php
+// Copyright © 2025 Shiva Sharan Shrestha. All rights reserved. This code is part of NexaEducationCountaltancy.
+
 // Get gallery images for public display
 require_once 'admin/database.php';
 

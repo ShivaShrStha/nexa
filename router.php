@@ -1,4 +1,6 @@
 <?php
+// Copyright © 2025 Shiva Sharan Shrestha. All rights reserved. This code is part of NexaEducationCountaltancy.
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 

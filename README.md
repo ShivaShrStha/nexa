@@ -18,5 +18,6 @@ This project is built primarily with PHP for all backend and dynamic functionali
 
 ## License
 
-This project is licensed under the MIT License.  
-© 2025 Shiva Sharan Shrestha
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). You may use, modify, and share this code, but any derivative work or deployment must also be open source and provide access to the source code. For details, see [AGPL-3.0](https://choosealicense.com/licenses/agpl-3.0/).
+
+© 2025 Shiva Sharan Shrestha. All rights reserved.

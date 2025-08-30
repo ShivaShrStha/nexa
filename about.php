@@ -1,4 +1,5 @@
 <?php
+// Copyright © 2025 Shiva Sharan Shrestha. All rights reserved. This code is part of NexaEducationCountaltancy.
 // About page - no dynamic content needed yet
 ?>
 <!doctype html>

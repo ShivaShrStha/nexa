@@ -1,4 +1,6 @@
 <?php
+// Copyright © 2025 Shiva Sharan Shrestha. All rights reserved. This code is part of NexaEducationCountaltancy.
+
 // Add sample blog posts for testing
 require_once 'admin/database.php';
 
